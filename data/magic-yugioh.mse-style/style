@@ -1,0 +1,349 @@
+mse version: 2.5.6 (Unofficial)
+game:magic
+short name: Yu-Gi-Oh!
+full name: MTG x Yu-Gi-Oh!
+icon: card-sample.png
+installer group: magic/m15 style/normal cards
+position hint: 075
+
+version: 2025-03-21
+depends on:
+	package: 			magic.mse-game
+	version: 			2024-10-01
+depends on:
+	package: 			magic-mana-large.mse-symbol-font
+	version: 			2020-02-07.
+depends on:
+	package:			magic-mana-small.mse-symbol-font
+	version:			2020-02-07
+depends on:
+	package:			magic-modules.mse-include
+	version:			2024-10-01
+
+card width: 750
+card height: 1046
+card dpi: 300
+##### Card frame uses edited template images by https://www.deviantart.com/icycatelf
+
+#################### Scripts
+init script:
+	swap_fonts_body_default :=
+	[
+		name:			{"ITC Stone Serif"},
+		size:			{28.0},
+		color:			{"black"},
+		vertical:		{0},
+		italic:			{"ITC Stone Serif Italic"}
+	]
+	swap_fonts_name_default :=
+	[
+		name:			{"MatrixRegularSmallCaps"},
+		size:			{52},
+		color:			{"black"},
+		vertical:		{-5}
+	]
+	swap_fonts_type_default :=
+	[
+		name:			{"Yu-Gi-Oh!ITCStoneSerifSmallCapsBold"},
+		size:			{22},
+		color:			{"black"},
+		vertical:		{0},
+		italic:			{""}
+	]
+	swap_fonts_pt_default :=
+	[
+		name:			{"ITC Stone Serif"},
+		size:			{24},
+		color:			{"black"},
+		vertical:		{0},
+		italic:			{"ITC Stone Serif Italic"}
+	]
+	indicator_disable_1 := { true }
+	indicator_disable_2 := { true }
+	indicator_disable_3 := { true }
+	
+	
+
+	####################### card stamp settings
+	card_stamp_offset_width_1:=		{ 0 }
+	card_stamp_offset_height_1:=	{ 0 }
+	card_stamp_back_size:=			{ 0 }
+	card_stamp_size_offset:=		{ 0 }
+	#######################setting for mana cost
+	casting_cost_offset_top_1:=		{69}
+	casting_cost_offset_left_1:=	{-15}
+	#######################Settings for typeline 
+	typeline_offset_top_1:=			{48}
+	typeline_offset_left_1:=		{-6}
+	typeline_offset_width_1:=		{8}
+
+#################### Styling Fields
+include file: /magic-modules.mse-include/texts/styling_fields
+include file: /magic-modules.mse-include/rarities/styling_fields
+include file: /magic-modules.mse-include/symbol-fonts/styling_fields
+include file: /magic-modules.mse-include/information/styling_fields
+include file: /magic-modules.mse-include/indicators/styling_fields
+
+#################### Modules
+include file: /magic-modules.mse-include/information/card_fields
+include file: /magic-modules.mse-include/stamps/card_fields
+include file: /magic-modules.mse-include/casting-costs/card_fields
+include file: /magic-modules.mse-include/corners/card_fields
+include file: /magic-modules.mse-include/rarities/card_fields
+
+#################### Extra Card Field looks.
+
+extra card field:
+	type:				choice
+	name:				frame_type
+	default:			"Normal"
+	choice:				Normal
+	choice:				Effect
+	choice:				Fusion
+	choice:				Spell
+	choice:				Trap
+	choice:				Obelisk
+	choice:				Ra
+	choice:				Slifer
+extra card field:
+	type:				choice
+	name:				attribute
+	default:			"Light"
+	choice:				Light
+	choice:				Dark
+	choice:				Water
+	choice:				Fire
+	choice:				Wind
+	choice:				Earth
+	choice:				Divine
+	choice:				Spell
+	choice:				Trap
+extra card field:
+	type:				choice
+	name:				border
+	editable:			false
+	save value:			false
+	show statistics:	false
+	choice:				Border
+extra card field:
+	type:				choice
+	name:				overlay
+	editable:			false
+	save value:			false
+	show statistics:	false
+	choice:				overlay
+extra card field:
+	type:				choice
+	name:				overlay2
+	editable:			false
+	save value:			false
+	show statistics:	false
+	choice:				overlay2
+extra card field:
+	type:				choice
+	name:				stamp back
+	editable:			false
+	save value:			false
+	show statistics:	false
+	choice:				stamp back
+extra card field:
+	type:				choice
+	name:				pt box
+	editable:			false
+	save value:			false
+	show statistics:	false
+	choice:				pt box
+extra card field:
+	type:				text
+	name:				ygotypebox
+	show statistics:	false
+	save_value:			false
+	card list visible:	true
+	card list name:		ygoType
+	sort script: type_sort_script(super_type: card.super_type, sub_type: card.sub_type)
+	script:
+		combined_editor(
+			prefix:				"[",
+			suffix:				"]",
+			field1: 			card.super_type,
+			separator:			"/",
+			field2:				card.sub_type,
+			soft_before_empty: 	true,
+			hide_when_empty:   	true
+		)
+extra card field:
+	type:				text
+	name:				ygopower
+	show statistics:	false
+	save_value:			false
+	card list visible:	true
+	card list name:		ygopower
+	script:
+		combined_editor(
+			prefix:				"ATK/",
+			field1:				card.power,
+			soft_before_empty:	true,
+			hide_when_empty:	true
+		)
+extra card field
+	type:				text
+	name:				ygotoughness
+	show statistics:	false
+	save_value:			false
+	card list visible:	true
+	card list name:		ygotoughness
+	script:
+		combined_editor(
+			prefix:				"DEF/",
+			field1:				card.toughness,
+			soft_before_empty:	true,
+			hide_when_empty:	true
+		)
+################ Extra Card Styles
+
+extra card_style:
+	frame_type:
+		left:			0
+		top:			0
+		width:			{ stylesheet.card_width }
+		height:			{ stylesheet.card_height }
+		z index:		2
+		popup style:	in place
+		render style:	image
+		image:			{"Card/" + input + ".png"}
+	attribute:
+		left:			640
+		top:			47
+		width:			65
+		height:			65
+		z index:		920
+		popup style:	in place
+		render style:	image
+		image:
+			script: ("Attribute/" + input + ".png")
+	overlay:
+		left:			0
+		top:			0
+		width:			{ stylesheet.card_width }
+		height:			{ stylesheet.card_height }
+		z index:		300
+		popup style:	in place
+		render style:	image
+		image:			{"Overlay.png"}
+	overlay2:
+		left:			0
+		top:			0
+		width:			{ stylesheet.card_width }
+		height:			{ stylesheet.card_height }
+		z index:		300
+		popup style:	in place
+		render style:	image
+		image:			{"Overlay2.png"}
+	border:
+		left:			0
+		top:			0
+		width:			{ stylesheet.card_width }
+		height:			{ stylesheet.card_height }
+		z index:		500
+		popup style: 	in place
+		render style:	image
+		image: 			{ set_mask(image: "Border.png", mask: "Border_mask.png") }
+	stamp back:
+		left:   		0
+		top:    		0
+		width:  		{ stylesheet.card_width }
+		height: 		{ stylesheet.card_height }
+		z index:		859
+		popup style:	in place
+		render style:	image
+		image:			Stamp.png
+	ygotypebox:
+		left:			{ indicator_left_1() + type_indicator_shift_1() + type_offset_left_1() + typeline_offset_left_1() }
+		top:			{ indicator_top_1() - indicator_size_1() * 0.2 + type_offset_top_1() + typeline_offset_top_1() + type_font_vertical() }
+		right:			{ rarity_left_1() + type_offset_right_1() + typeline_offset_left_1() + typeline_offset_width_1() - typeline_offset_height_1() }
+		height:			{ indicator_size_1() * 1.3 + type_offset_height_1() + typeline_offset_height_1() }
+		z index:		900
+		alignment:		middle left shrink-overflow
+		visible:		{ (not typeline_disabled_1()) and not type_disabled_1() }
+		font:
+			name:			{ type_font() }
+			italic name:    { type_font_italic() }
+			size:           { type_font_size() }
+			color:          { type_font_color() }
+			separator color:red
+	ygopower:
+		left:			440
+		top:			{ 920 + pt_font_vertical() }
+		right:			565
+		height:			46
+		z index:		900
+		alignment:		left middle shrink-overflow
+		font:
+			name:				{ pt_font() }
+			size:				{ pt_font_size() }
+			color:				{ pt_font_color() }
+			separator color:	red
+	ygotoughness:
+		left:			575
+		top:			{ 920 + pt_font_vertical() }
+		right:			690
+		height:			46
+		z index:		900
+		alignment:		left middle shrink-overflow
+		font:
+			name:				{ pt_font() }
+			size:				{ pt_font_size() }
+			color:				{ pt_font_color() }
+			separator color:	red
+		
+
+################################### Card styles
+card style:
+	name:
+		left:					43
+		top:					45
+		width:					590
+		height:					70
+		z index:				900
+		padding left:			10
+		padding bottom:			10
+		alignment:				middle left stretch if-overflow
+		font:					
+			name:				{name_font()}
+			size:				{name_font_size()}
+			color:				{name_font_color()}
+	text:
+		left:					55
+		top:					690
+		width:					640
+		height:					255
+		padding left:			5
+		padding right:			5
+		z index:				900
+		alignment:
+			script:
+				if (styling.center_text == "short text only" and
+					not contains(match:"\n", card.rule_text) and
+					card.flavor_text == "<i-flavor></i-flavor>" and
+					card_style.text.content_lines <= 2) or
+				styling.center_text == "always"
+				then "middle center"
+				else "middle elft"
+				
+		font:
+			name:				{body_font()}
+			size:				{body_font_size()}
+			color:				{body_font_color()}
+			scale down to:		7
+		symbol font:
+			name:				{styling.text_box_mana_symbols}
+			size:				{body_font_size()}
+	image:
+		left:			87
+		top:			192
+		width:			576
+		height:			419
+		z index:		100
+	
+		
+	
